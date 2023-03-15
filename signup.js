@@ -91,26 +91,3 @@ async function getdata(sql) { //sql query function
 
 
 
-
-// app.post("/signup", async (req, res) => { //sign api
-//     const { name, email, pwd } = req.body;
-//     console.log(req.body);
-
-//     var hash = await bcrypt.hash(pwd, 10)
-//     const activation_token = Math.random().toString(36).substring(2, 15);
-
-//     var sql = `insert into twitter_clone.userss (usersname, email ,password ,created_at) values ('${name}','${email}','${hash}', NOW()) `
-//     var result = await getdata(sql)
-
-// })
-
-
-// app.get("/activate", async function (req, res) { //activate api for activate users
-//     const string = req.query.activate
-//     console.log(string)
-
-//     sql = `UPDATE job_application_db.registration_tbl SET activationstatus = '1' WHERE activationlink ='${string}';`
-//     let data = await getdata(sql);
-//     res.render("login");
-
-// });

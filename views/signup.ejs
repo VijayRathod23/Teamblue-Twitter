@@ -42,7 +42,7 @@
                                 <p id="1"></p>
                             </div>
                             <div class="user-info">
-                                <input type="text" name="mail" id="mail" onchange="checkmail()"
+                                <input type="text" name="email" id="email" onchange="checkmail()"
                                 required placeholder="Email">
                                 <p id="2"></p>
                             </div>
@@ -109,7 +109,7 @@
         }
     }
     function checkmail() {
-        var email = document.getElementById('mail').value;
+        var email = document.getElementById('email').value;
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         fetch(`/finduser?email=${email}`)
             .then(res => res.json())
@@ -146,10 +146,7 @@
             document.getElementById("3").innerHTML = "** password must contain latter digit and symbol "
             return false;
         }
-        if (pwd.length > 6 && pwd.length <16) {
-            document.getElementById("3").innerHTML = "** length is 6-16"
-            return false;
-        }
+
         else {
             document.getElementById("sub").disabled = false;
             document.getElementById("3").innerHTML = "";
