@@ -1,0 +1,24 @@
+{
+  "name": "teamblue-twitter",
+  "version": "1.0.0",
+  "description": "Vijay rathod",
+  "main": "dbConfig.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VijayRathod23/Teamblue-Twitter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VijayRathod23/Teamblue-Twitter/issues"
+  },
+  "homepage": "https://github.com/VijayRathod23/Teamblue-Twitter#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.2.0"
+  }
+}
