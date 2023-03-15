@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/registration-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+    <form action="" method="post">
+        <div class="main">
+
+            <div class="registration">
+
+                <section class="section">
+
+                    <div class="container">
+
+                      
+
+                        <div class="logo">
+                            <i class="fa-brands fa-twitter"></i>
+                        </div>
+
+
+                        <div class="heading">
+                            <h1>
+                                Join Twitter Today.
+                            </h1>
+                        </div>
+                        <div class="inputs">
+                            <div class="user-info">
+                                <input type="text" name="name" id="name" onchange="checkname()"
+                                required placeholder="Full Name">
+                                <p id="1"></p>
+                            </div>
+                            <div class="user-info">
+                                <input type="text" name="email" id="email" onchange="checkmail()"
+                                required placeholder="Email">
+                                <p id="2"></p>
+                            </div>
+                            <div class="user-info">
+                                <input type="text" name="pwd" id="pwd"  onchange="checkpwd()"
+                                required placeholder="Password">
+                                <p id="3"></p>
+                            </div>
+                            <div class="user-info">
+                                <input type="text" name="repwd" id="repwd" onchange="checkrepwd()"
+                                required placeholder="Confirm Password">
+                                <p id="4"></p>
+                            </div>
+                        </div>
+
+                        <div class="buttons">
+                            <div class="signup">
+                                <input type="submit" value="Sign-Up" id="sub" disabled>
+                            </div>
+                         
+                        </div>
+
+                        <div class="login">
+                            <span>Already have an account? <a href="/login">Login</a></p>
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </div>
+    </form>
+</body>
+
+
+<script>
+    function checkname() {
+        document.getElementById("sub").disabled = true;
+        var name = document.getElementById('name').value;
+        if (name == "") {
+            document.getElementById("1").innerHTML = "** name can not empty";
+            return false;
+        }
+        else if (name.length < 2) {
+            document.getElementById("1").innerHTML = "** Please enter valid name";
+            return false;
+        }
+        else if (!isNaN(name)) {
+            document.getElementById('1').innerHTML = "** name contain only alphabets";
+            return false;
+        }
+        else {
+            document.getElementById("sub").disabled = false;
+            document.getElementById("1").innerHTML = "";
+            return true;
+        }
+    }
+    function checkmail() {
+        var email = document.getElementById('mail').value;
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        fetch(`/finduser?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (email == "") {
+                    document.getElementById("2").innerHTML = "** email can not empty";
+                }
+                else if (!reg.test(email)) {
+                    document.getElementById('2').innerHTML = "** please enter valid email";
+                }
+                else if (data.exists) {
+                    document.getElementById('2').innerHTML = "** Email Already Exist";
+                }
+                else {
+                    document.getElementById('2').textContent = '';
+                }
+            })
+            .catch(err => console.log(err));
+    }
+    function checkpwd() {
+        document.getElementById("sub").disabled = true;
+        var pwd = document.getElementById('pwd').value;
+        var paswd = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+        if (pwd == "") {
+            document.getElementById("3").innerHTML = "** password can not empty";
+            return false;
+        }
+         if (!(paswd.test(pwd))) {
+            document.getElementById("3").innerHTML = "** password must contain latter digit and symbol "
+            return false;
+        }
+        else {
+            document.getElementById("sub").disabled = false;
+            document.getElementById("3").innerHTML = "";
+            return true;
+        }
+    }
+    function checkrepwd() {
+        document.getElementById("sub").disabled = true;
+        var pwd = document.getElementById('pwd').value;
+        var repwd = document.getElementById('repwd').value;
+        if (pwd == "") {
+            document.getElementById("4").innerHTML = "** field can not empty";
+            return false;
+        }
+        else if (pwd != repwd) {
+            document.getElementById("4").innerHTML = "** password must be same !"
+            return false;
+        }
+        else {
+            document.getElementById("sub").disabled = false;
+            document.getElementById("4").innerHTML = "";
+            return true;
+        }
+    }
+</script>
+
+</html>
