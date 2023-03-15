@@ -14,10 +14,9 @@ form {
     opacity: 10px;
     
     }
-    .form{
-        margin-top: 3
-        rem;
-    }
+.form{
+    margin-top: 3rem;
+}
 .cancel{
     /* position: fixed; */
     position: relative;
@@ -87,4 +86,14 @@ input{
     
     justify-content: center;
     display: flex;
+}
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    .form{
+        width:100%;
+    }
+    .footer {
+      display: block;
+      float: none;
+    }
 }
