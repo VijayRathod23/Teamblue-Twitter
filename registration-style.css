@@ -4,6 +4,10 @@ body{
     font-family:'Segoe UI';
     text-align: center;
     }
+.logo{
+    font-size: 40px;
+    color: #1DA1F2;
+}
 h1{
     font-size: 40px;
 }
@@ -26,7 +30,6 @@ input{
 }
 .user-info{
   width:100%;
-  margin-bottom: 9px;
   border-color: gray;
   color:gray;
   
@@ -43,7 +46,7 @@ input{
     display:flex;
    justify-content: center;
 }
- a{
+ .buttons a{
     font-size: 20px;
     width:100px;
     text-align: center;
@@ -54,4 +57,9 @@ input{
     text-decoration: none;
     color:antiquewhite;
     font-weight: bold;
+}
+.footer{
+    margin-top: 10px;
+    justify-content: center;
+    display: flex;
 }
