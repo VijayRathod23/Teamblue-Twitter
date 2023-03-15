@@ -38,13 +38,7 @@ app.get("/signup", function (req, res) { //signup api
 //user registration
 app.post('/signup', async (req, res) => {
     const { name, email, pwd } = req.body;
-    // var sql = `select * from users where email = '${email}'`;
-    // var result = await getdata(sql);
-  
-    // if (result.length != 0) {
-    //     return res.send(`User Already registered! please Login <a href="/login">login</a>`)
-    // }
-  
+   
     var hashPass = await bcrypt.hash(pwd, 10);
     
     const activation_token = Math.random().toString(36).substring(2, 15);
