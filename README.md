@@ -1,2 +1,0 @@
-# Teamblue-Twitter
-Twitter Project 
