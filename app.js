@@ -58,7 +58,7 @@ app.post('/signup', async (req, res) => {
     const activationLink = `http://localhost:3000/activate?token=${activation_token}`;
     console.log(email);
     var sql = `insert into users(username,email,password,activation_token) values('${name}','${email}','${hashPass}','${activation_token}')`;
-    var result = await conn.execute(sql);
+    var result = await con.execute(sql);
     res.send(`user register successfully!  <a href="${activationLink}"> Activate Account </a>`);
 });
 
@@ -221,7 +221,7 @@ app.post("/login", async (req, res) => {
 app.get("/home",(req,res)=>{
     const jwtToken = req.cookies.jwtToken;
     if (!jwtToken) {
-        return res.send(`you are not authorized register first <a href="/">register</a>`);
+        return res.send(`you are not authorized register first <a href="/signup">register</a>`);
     }
     const tokenData = jwt.verify(jwtToken, "user");
     res.render("home",{tokenData});
