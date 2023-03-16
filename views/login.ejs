@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <form action="/login" method="post">
+    <form action="" method="post" >
         <div class="main">
             <div class="login">    
                <section class="section">    
@@ -28,12 +28,13 @@
                         <div class="inputs">
                             
                             <div class="user-info">
-                                <input type="text" name="email" placeholder="Email">
-                                <p></p>
+                                <input type="text" name="email" placeholder="Email" id="email" onchange="checkmail()">
+                              
                             </div>
                             <div class="user-info">
-                                <input type="text" name="password" placeholder="Password">
-                                <p></p>
+                                <input type="text" name="password" placeholder="Password" id="password" onchange="checkpwd()">
+                               
+                                <p id="error"></p>
                             </div>
                             <div class="forgot-password">
                                 <a href="#">Forgot password</a>
@@ -42,14 +43,14 @@
                         </div>
                         <div class="buttons">
                             <div class="next">
-                                <input type="submit" value="Log In">
+                                <input type="submit" value="Log In" disabled id="sub">
                                 <!-- <a href="#">Login </a> -->
                              </div>
                             
                         </div>
                         <div class="footer">
-                            <p>Don't Have an account ?</p>
-                            <p><a href="#"> Sign up</a></p>
+                            <h5 id="txt1">Don't Have an account ?  </h5>
+                            <h4><a href="/signup"> Sign up</a></h4>
                         </div>
 
                     </div>
@@ -57,10 +58,35 @@
             </div>
         </div>
     </form>
-
-                
-               
+    <script>
+        function checkmail() {
+            var email = document.getElementById('email').value;
             
+                
+                    if (email == "") {
+                        document.getElementById("error").innerHTML = "** email can not empty";
+                    }
+                   
+                    else {
+                        document.getElementById('error').textContent = '';
+                    }
+               
+        }
+        function checkpwd() {
+            document.getElementById("sub").disabled = true;
+            var pwd = document.getElementById('password').value;
+            if (pwd == "") {
+                document.getElementById("error").innerHTML = "** password can not empty";
+                return false;
+            }
+            else {
+                document.getElementById("sub").disabled = false;
+                document.getElementById("error").textContent = "";
+                return true;
+            }
+        }
+        
+    </script>
 
   
 </body>

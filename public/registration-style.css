@@ -47,6 +47,7 @@ input{
 .user-info {
   border-color: gray;
   color:gray;
+  margin-top: 15px;
   
 }
 ::placeholder {
@@ -65,7 +66,9 @@ input{
     display: flex;
 }
 p{
-    color: red;
+    color: #1DA1F2;
+   font-weight: bold;
+   font-size: 20px;
 }
 
 .login{
@@ -75,5 +78,13 @@ p{
 .signup input{
     background-color: #1DA1F2;
     color: white;
-    width: 40%;
+    width: 48%;
+}
+.next input{
+    background-color: #1DA1F2;
+    color: white;
+    width: 48%;
+}
+#txt1{
+    color: black;
 }

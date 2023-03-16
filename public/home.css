@@ -1,0 +1,161 @@
+.container{
+    max-width: 1170px;
+    padding: 0px 16px;
+    margin: 0 auto;
+}
+
+.screen{
+    display: flex;
+    width: 100%; 
+}
+/* ***************************Navigation Bar************************* */
+
+.navigationbar{
+    width:20%;
+    position: fixed;
+    height: 100vh;
+    /* position: relative;
+    
+     z-index: 1; */
+    
+}
+
+.logo i{
+    color: #1DA1F2;
+}
+
+.logo{
+    height: 10%;
+    padding-top: 1rem;
+}
+
+.navigation{
+    height: 68%;
+    padding-top: 5rem;
+}
+
+.navrow{
+    display: flex;
+    margin-bottom: 1.8rem ;
+}
+
+.navrow span{
+    padding-left: 1rem;
+    padding-top: 0.25rem;
+    font-size: large;
+}
+
+.tweetbtn{
+    width: 80%;
+    background-color: #1DA1F2;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+
+.profile{
+    display: flex;
+    height: 25%;
+}
+
+.profileimg{
+    width: 25%;
+}
+
+.profileimg img{
+    width: 3rem;
+    margin-right: 1rem;
+}
+
+.profileinfo{
+    width: 60%;
+}
+
+.name span{
+    font-weight: 600;
+}
+
+.username span{
+    color: grey;
+}
+
+.more{
+    width: 22%;
+}
+
+.more img{
+    width: 1rem;
+    margin-top: 0.5rem;
+}
+
+
+
+
+/* *************************Content Section************************** */
+
+.contentsection{
+    width: 80%;
+    margin-left: 20%;
+    padding: 1rem;
+}
+
+.tweetform{
+    display: flex;
+}
+
+.tweetform img{
+    width: 10%;
+    height: 10%;
+    padding-top: 1rem;
+}
+
+.tweetform input{
+    padding: 2rem;
+    width: 85%;
+    border: none;
+    font-size: 1rem;
+}
+
+.tweetsubmit{
+    display: flex;
+    padding-top: 0.5rem;
+    padding-left: 10%;
+}
+
+
+.tweetsubmit .tweet{
+    width: 25%;
+    margin-left: 8rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 20px;
+    background-color: #1DA1F2;
+    color: white;
+    font-weight: 600;
+    border: none;
+    /* justify-content: end; */
+}
+
+.tweetsubmit i{
+    color: #1DA1F2;
+    padding-top: 0.5rem;
+}
+
+.tweetsubmit>#file_input{
+    display: none;
+}
+
+form{
+    width: 50%;
+    border: 2px solid rgba(128, 128, 128, 0.193);
+    margin-left: 2rem;
+    /* margin-right: auto; */
+    padding: 1rem;
+}
+
+
+
+

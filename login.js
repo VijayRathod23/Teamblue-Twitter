@@ -130,14 +130,6 @@ app.post("/login", async (req, res) => {
 
             res.send(`user not found`)
         }
-        // else {
-        //     //jwt token
-        //     const token = jwt.sign(data, "user");
-        //     res.cookie("jwtToken", token);
-        //     const tokenData = jwt.verify(token, "user");
-        //     console.log(tokenData);
-        //     // res.render("homepage", { tokenData });
-        // }
     })
 })
 app.listen(3000);
