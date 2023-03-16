@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+
+   <link rel="stylesheet" href="/home.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="screen">
+
+            <!-- *********************Navigation Bar********************** -->
+
+            <div class="navigationbar">
+
+
+
+                <!-- ************logo******************** -->
+
+                <div class="logo">
+                    <i class="fa-brands fa-twitter fa-3x"></i>
+                </div>
+
+
+
+                <!-- ************navigation******************** -->
+
+                <div class="navigation">
+
+                    <div class="navrow home">
+                        <i class="fa-solid fa-house fa-2x"></i>
+                        <span>Home</span>
+                    </div>
+
+                    <div class="navrow explore">
+                        <i class="fa-solid fa-hashtag fa-2x"></i>
+                        <span>Explore</span>
+                    </div>
+
+                    <div class="navrow notifications">
+                        <i class="fa-regular fa-bell fa-2x"></i>
+                        <span>Notifications</span>
+                    </div>
+
+                    <div class="navrow messages">
+                        <i class="fa-regular fa-envelope fa-2x"></i>
+                        <span>Messages</span>
+                    </div>
+
+                    <div class="navrow profile" onclick="profile()">
+                        <i class="fa-regular fa-user fa-2x"></i>
+                        <span>Profile</span>
+                    </div>
+
+
+                    <div class="navrow">
+                        <a href="" class="tweetbtn">
+                            <p>Tweet</p>
+                        </a>
+                    </div>
+
+                </div>
+
+
+
+                <!-- ************profile******************** -->
+
+                <div class="profile">
+                    <div class="profileimg">
+                        <img src="/images/1st.png" alt="">
+                    </div>
+                    <div class="profileinfo">
+                        <div class="name">
+                            <span>HarshPatel002</span>
+                        </div>
+                        <div class="username">
+                            <span>@harshpatel052</span>
+                        </div>
+                    </div>
+                    <div class="more">
+                        <img src="/images/more.png" alt="">
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <!-- *********************Content Section********************** -->
+            <div class="contentsection">
+                <h1>Home</h1>
+                
+                
+                <form action="">
+
+                    <div class="tweetform">
+                        <img src="/images/1st.png" alt="">
+                        <input type="text" name="tweetformcontent" id="tweetformcontent" placeholder="What's Happening?">
+                    </div>
+                    <div class="tweetsubmit">
+                        <label for="file_input">
+                            <!-- <img src="" alt="" srcset=""> -->
+                            <i class="fa-regular fa-image "></i>
+                        </label>
+                        <input type="file" id="file_input">
+                        <!-- <i class="fa-regular fa-image "><input type="file" name="file"></i> -->
+                        <input type="submit" value="Tweet" class="tweet">
+                    </div>
+
+                </form>
+
+            </div>
+            
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function profile(){
+            location.assign(`/profile`);
+        }
+    </script>
+
+</body>
+
+</html>

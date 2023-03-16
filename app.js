@@ -1,31 +1,44 @@
-const ejs = require('ejs');
-const express = require('express');
-const bodyParser = require('body-parser');
+var express = require('express');
+const connect = require('http2');
 var app = express();
-var jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-var cookies = require('cookie-parser');
+var mysql = require('mysql2');
+const { query, response } = require('express');
+var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
+const { type } = require('os');
+const { match } = require('assert');
+const jwt = require('jsonwebtoken');
+const cookie = require('cookie-parser');
+const { Console } = require('console');
 const path = require('path');
+const { send } = require('process');
 app.use(express.static(path.join(__dirname, "/public")));
-app.use(cookies());
-app.use(bodyParser.urlencoded({ extended: false }))
+
 app.use(bodyParser.json());
-app.set("view engine", "ejs");
-const mysql = require('mysql2');
-const conn = mysql.createConnection({
+app.use(cookie());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+
+var conn = mysql.createConnection({
+
     host: "localhost",
+
     user: "root",
+
     password: "root",
+
     database: "twitter_clone"
+
 });
-
 conn.connect((err) => {
+
     if (err) throw err;
-    console.log("connected to twitter db!");
+
+    console.log("success!")
+
 })
-app.listen(`3000`);
 
-
+//signup
 app.get("/signup", function (req, res) { //signup api
     const availabletkn = req.cookies.jwtToken;
     if (availabletkn) {
@@ -49,18 +62,6 @@ app.post('/signup', async (req, res) => {
     res.send(`user register successfully!  <a href="${activationLink}"> Activate Account </a>`);
 });
 
-app.get("/login", (req, res) => {
-
-    var availabletkn = req.cookies.jwtToken;
-
-    // if (availabletkn) {
-
-    //     res.redirect("/homepage")
-
-    // }
-
-    res.render("login.ejs")
-})
 app.get("/activate?", async (req, res) => {
     const actKey = req.query.token;
     sql = `update users set activated = 1 where activation_token = "${actKey}"`;
@@ -103,19 +104,9 @@ app.post("/login", async (req, res) => {
     const jwtToken = jwt.sign(data[0], "user");
     res.cookie("jwtToken", jwtToken);
 
-    res.redirect('/home');
+    res.redirect("/home");
 })
 
-app.get("/home", (req, res) => {
-
-    const jwtToken = req.cookies.jwtToken;
-    if (!jwtToken) {
-        return res.send(`you are not authorized register first <a href="/">register</a>`);
-    }
-    const tokenData = jwt.verify(jwtToken, "user");
-    // res.render("home", { tokenData });
-
-})
 
 
 app.get("/finduser", async (req, res) => {
@@ -138,3 +129,119 @@ async function getdata(sql) { //sql query function
         })
     })
 }
+
+
+//login
+app.get("/login", (req, res) => {
+
+    // var istkn = req.cookies.jwtToken;
+
+    // if (istkn) {
+
+    //     res.redirect("/homepage")
+
+    // }
+
+    res.render("login.ejs")
+})
+app.get('/activepage?', (req, res) => {
+
+    var token = req.query.token;
+
+    con.query(`UPDATE users SET activated = '1' WHERE activation_token=${token};`, (err, result) => {
+
+        if (err) throw err;
+
+        console.log(result)
+
+        if (result.affectedRows == 0) {
+
+            res.send(`failed to activate`)
+        }
+
+        else {
+
+            res.render("login");
+            
+        }
+    })
+
+
+})
+app.post("/login", async (req, res) => {
+    var email = req.body.email;
+
+    var password = req.body.password;
+
+    var h1 = await bcrypt.hash(password, 10);
+
+    console.log(h1)
+
+    con.query(`select * from users where email='${email}';`, async (err, result) => {
+
+        if (err) throw err;
+
+        if (result[0].length == 0) {
+
+            res.send("user not found")
+        }
+    con.query(`select activated from users where email = '${email}';`,async(err,result)=>{
+        
+        if(err) throw err;
+
+        if(result[0]=='1'){
+
+        }
+        else{
+            var activation_code = Math.random().toString(36).substring(2, 15);
+
+            console.log(activation_code)
+
+            con.query(`update users set activation_token='${activation_code}' where email = '${email}'`);
+
+            var activation_link = `http://localhost:3000/activepage?token='${activation_code}'`;
+
+            res.send(` <a href=${activation_link}>activation link</a>`);
+        }
+    })
+        const data = result[0];
+
+        let bpass = result[0].password;
+
+        var match = await bcrypt.compare(password, bpass);
+
+        if (!match) {
+
+            res.send(`user not found`)
+        }
+    })
+})
+
+//Home Page
+app.get("/home",(req,res)=>{
+    // const jwtToken = req.cookies.jwtToken;
+    // if (!jwtToken) {
+    //     return res.send(`you are not authorized register first <a href="/">register</a>`);
+    // }
+    // const tokenData = jwt.verify(jwtToken, "user");
+    res.render("home");
+    // res.render("home",{tokenData});
+})
+
+
+// Profile Page
+
+
+app.get("/profile",(req,res)=>{
+    res.render("profile")
+})
+
+
+
+// Edit Profile
+
+app.get("/edit_profile",(req,res)=>{
+    res.render("edit_profile")
+})
+
+app.listen(3000);
