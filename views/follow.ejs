@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+
+        <tr>
+            <td>
+                userid
+            </td>
+            <td>
+                username
+            </td>
+            <td>
+                follower
+            </td>
+        </tr>
+        <% for(var i=0;i<result.length; i++) { %>
+            <tr>
+                <td onclick="follow(`<%=result[i].id %>`)" name="<%=result[i].id %>" id="<%=result[i].id %>"><%=result[i].id %></td>
+                <td><%=result[i].name %></td>
+                <td onclick="follower(`<%=result[i].id %>`)">follower</td>
+               
+            </tr>
+
+       <% } %>
+       <tr id="followercount" style="background-color:red;border:1px solid;font-weight: 200;"></tr>
+       <tr id="follow"></tr>
+       <tr id="followercount" style="background-color:red;border:1px solid;font-weight: 200;"></tr>
+       <tr id="follower"></tr>
+
+        
+    </table>
+
+    <!-- <div >
+        <input  class="btn" type="submit" value="submit" >
+    </div> -->
+
+    <script>
+
+        function follow(id){
+            document.getElementById(`${id}`).style.backgroundColor = "red";
+            console.log("hiii",id)
+             var listed = document.getElementById("follow");
+            // var followcount = document.getElementById("followcount");
+             var s ="";
+            fetch(`/postfollow?id=${id}` )
+           
+                                .then(res =>res.json())
+                            
+                                // location.reload()
+                                
+                                .then((result) => 
+                                {
+                                    console.log("result")
+                                    
+                                    var counted = result.length;
+                                    console.log(result)
+                                    
+                                    s+="following `${id}`"
+                                    listed.innerHTML=s;
+                                })
+                
+
+        }
+        function follower(id){
+            document.getElementById(`${id}`).style.backgroundColor = "yellow";
+            var listed = document.getElementById("follower");
+            var followercount = document.getElementById("followercount");
+            var s ="";
+            console.log("hiii",id)
+            fetch(`/postfollower?id=${id}` )
+             
+           
+                                .then(res =>res.json())
+                            
+                                // location.reload()
+                                
+                                .then((result) => 
+
+                                {
+                                    console.log("follower")
+                                    console.log(result)
+
+                                    var counted = result.length;
+                                    followercount.innerHTML =  counted;
+
+                                   //listing of followers
+
+                                    for(var x=0;x<result.length;x++){
+                                    
+                                            s+=` <div><p>${result[x].f_id}</p></div>`
+
+                                               
+                                    }
+
+                                                
+                                     listed.innerHTML=s;
+                                    // console.log(s)                 
+                                })
+                
+
+        }
+    </script>
+</body>
+</html>
