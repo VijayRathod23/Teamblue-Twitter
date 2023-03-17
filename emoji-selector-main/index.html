@@ -53,6 +53,8 @@
 
 
         function loadEmoji(data) {
+            let text = document.getElementById("text");
+
             data.forEach(emoji => {
                 let li = document.createElement('li');
                 li.setAttribute('name', emoji.slug);
@@ -69,21 +71,11 @@
             lin.forEach((i) => {
                 console.log(i);
                 i.addEventListener("click", () => {
-
-
                     let emooji = i.getAttribute("id");
-                    console.log(emooji)
-                    let text = document.getElementById("text");
-                    console.log(text);
-                    text.setAttribute("value", emooji)
                     text.value += emooji
                 })
             })
         }
-
-
-
-
 
     </script>
 </body>
