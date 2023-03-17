@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/css/styles.css">
+    <title>Emoji Selector</title>
+</head>
+
+<body>
+
+    <div class="chat-container">
+        <div class="chat-body"></div>
+        <div class="chat-utilities">
+
+            <form action="">
+                <input type="text" value="" id="text">
+
+            </form>
+            <div class="utility-container">
+
+                <ul class="utility-group">
+                    <li class="emoji-selector" id="emojiSelector">
+                        <!-- <div class="input-container">
+                            <input id="emojiSearch" type="text" placeholder="Search...">
+                        </div> -->
+                        <ul id="emojiList" class="emoji-list">
+
+                        </ul>
+                    </li>
+
+                </ul>
+                <img src="./icons/face-smile-regular.svg" alt="" id="emojiSelectorIcon">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const emojiSelectorIcon = document.getElementById('emojiSelectorIcon')
+        const emojiSelector = document.getElementById('emojiSelector')
+        const emojiList = document.getElementById('emojiList');
+        // const emojiSearch = document.getElementById('emojiSearch')
+
+        emojiSelectorIcon.addEventListener('click', () => {
+            emojiSelector.classList.toggle('active');
+        })
+
+        fetch("https://emoji-api.com/emojis?access_key=266b9d58652001b3e7705cffbbfc033d8a9a0615")
+            .then((response) => response.json())
+            .then((data) => loadEmoji(data));
+
+
+        function loadEmoji(data) {
+            data.forEach(emoji => {
+                let li = document.createElement('li');
+                li.setAttribute('name', emoji.slug);
+                li.setAttribute('value', emoji.slug);
+                li.setAttribute('id', emoji.character);
+                li.textContent = emoji.character;
+                emojiList.appendChild(li);
+
+
+            });
+            let lin = document.querySelectorAll('#emojiList li');
+            console.log(lin);
+
+            lin.forEach((i) => {
+                console.log(i);
+                i.addEventListener("click", () => {
+
+
+                    let emooji = i.getAttribute("id");
+                    console.log(emooji)
+                    let text = document.getElementById("text");
+                    console.log(text);
+                    text.setAttribute("value", emooji)
+                    text.value += emooji
+                })
+            })
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
