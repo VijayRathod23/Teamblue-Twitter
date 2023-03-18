@@ -333,4 +333,67 @@ app.get('/search',async(req,res)=>{
     
 })
 
+//likes api
+//likes
+app.post('/like', async(req, res) => {
+    var pid = req.body.pid;
+    var user_id = req.body.uid;
+    const jwtToken = req.cookies.jwtToken;
+    const tokenData = jwt.verify(jwtToken, "user");
+    const uid = tokenData.id;
+    console.log(pid)
+    console.log("logged in user",uid);
+
+    //selecting either user has already likes or not
+    var select = `select * from likes where uid='${uid}' and pid='${pid}'`;
+    var data = await getdata(select);
+    // console.log(data)
+
+    //if empty then user does not has liked before so insert user values in database
+    if(data==''){
+        console.log("not found")
+        var insert = `insert into likes (pid,uid,liked) values('${pid}','${uid}','1');`
+        var i = await getdata(insert);
+        var sql=`update tweets set likes = likes + 1  where id = '${pid}' and user_id='${user_id}'`;
+             var result = await getdata(sql);
+        console.log("inserted")
+    }
+
+    //update likes status in db
+    else{
+        console.log("found")
+        var f =`select * from likes where pid='${pid}' and uid='${uid}'`;
+        var u = await getdata(f);
+            console.log("result data",u[0].liked)
+         if(u[0].liked==0){
+             console.log("like")
+             var sql=`update tweets set likes = likes + 1 where id = '${pid}' and user_id='${user_id}'`;
+             var result = await getdata(sql);
+             var minus = `update likes set liked = 1 where pid='${pid}' and uid='${uid}'`;
+             var done = await getdata(minus);
+             console.log("liked")
+             var q = `select likes from tweets where user_id='${user_id}' and id='${pid}'`;
+             var query = await getdata(q);
+             console.log(query[0].likes);
+             res.json(query)
+            //   res.redirect("/home");
+         }
+         if(u[0].liked==1){
+             console.log("dislike")
+             var sql=`update tweets set likes = likes - 1  where id = '${pid}' and user_id='${user_id}'`;
+             var result = await getdata(sql);
+             var minus = `update likes set liked = 0 where pid='${pid}' and uid='${uid}'`;
+             var done = await getdata(minus); 
+             var q = `select likes from tweets where user_id='${user_id}' and id='${pid}'`;
+             var query = await getdata(q);
+             console.log(query[0].likes);
+             res.json(query)          
+
+         }
+    }  
+});
+
+
+
+
 app.listen(3000);

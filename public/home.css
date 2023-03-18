@@ -226,3 +226,13 @@
 .tweet-main{
     margin-bottom: 2rem;
 }
+
+/* tweets likes css */
+.btn-container{
+    margin: 10px;
+    display: flex;
+}
+.twt-toggle{
+    width: calc(100% /3);
+    font-size: 20px;
+}

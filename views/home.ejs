@@ -57,7 +57,7 @@
                         <span>Profile</span>
                     </div>
 
-<!-- 
+                    <!-- 
                     <div class="navrow">
                         <a href="" class="tweetbtn">
                             <p>Tweet</p>
@@ -71,24 +71,26 @@
                 <!-- ************profile******************** -->
 
                 <div class="profile">
-                    <div class="profileimg">
-                        <img src="<%=selectData[0].profile_pic%>" alt="">
-                    </div>
-                    <div class="profileinfo">
-                        <div class="name">
-                            <span>
-                                <%=selectData[0].username%>
-                            </span>
+                    <%if(selectData[0].length !=0) {%>
+                        <div class="profileimg">
+                            <img src="<%=selectData[0].profile_pic%>" alt="">
                         </div>
-                        <div class="username">
-                            <span>
-                                <%=selectData[0].email%>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="more">
-                        <img src="/images/more.png" alt="">
-                    </div>
+                        <%}%>
+                            <div class="profileinfo">
+                                <div class="name">
+                                    <span>
+                                        <%=selectData[0].username%>
+                                    </span>
+                                </div>
+                                <div class="username">
+                                    <span>
+                                        <%=selectData[0].email%>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="more">
+                                <img src="/images/more.png" alt="">
+                            </div>
                 </div>
             </div>
 
@@ -141,12 +143,28 @@
                                         <%if(tweets[i].media){%>
                                             <img src="<%=tweets[i].media%>" alt="img" class="tweetImg" />
                                             <%}%>
-                                            <div>
+                                                <!-- <div>
                                                 <form action="/tweets/<%= tweets[i].id %>/like" method="POST">
                                                     <button type="submit">Like</button>
                                                   </form>
                                                   <p><strong>Likes:</strong> <%= tweets[i].likes %></p>
-                                            </div>
+                                            </div> -->
+
+                                                <div class="post-footer">
+                                                    <div class="btn-container">
+                                                        <input type="hidden" value="<%=tweets[i].id%>" name="tweetid">
+                                                        <div class="twt-toggle"><i class="fa-regular fa-comment"></i>
+                                                            comments</div>
+                                                        <div class="twt-toggle"><i class="fa-solid fa-heart"
+                                                                onclick="like('<%=tweets[i].id%>','<%=tweets[i].user_id%>')"></i>
+                                                            <p id="twt<%=tweets[i].id%>">
+                                                                <%=tweets[i].likes%>
+                                                            </p>
+                                                        </div>
+                                                        <div class="twt-toggle"><i class="fa-solid fa-retweet"></i>
+                                                            retweet</div>
+                                                    </div>
+                                                </div>
                                     </div>
                                 </div>
                             </div>
@@ -218,34 +236,56 @@
                 .then((search_data) => {
                     for (i = 0; i < search_data.length; i++) {
 
-                            s += `
+                        s += `
                         <div class="searchprofile">
                             <div class="profileimg">
-                                <img src="`+search_data[i].profile_pic+`" alt="">
+                                <img src="`+ search_data[i].profile_pic + `" alt="">
                             </div>
                             <div class="profileinfo">
                                 <div class="name">
                                     <span>`+
-                                        search_data[i].username+
-                                    `</span>
+                            search_data[i].username +
+                            `</span>
                                 </div>
                                 <div class="username">
                                     <span>`+
-                                        search_data[i].email+
-                                    `</span>
+                            search_data[i].email +
+                            `</span>
                                 </div>
                             </div>
                             <div class="followbtn">
                                 <p>Follow</p>
                             </div>
                         </div> `;
-                
+
                     }
                     document.getElementById('searchresult').innerHTML = s;
 
                 })
+        }
+
+        function profile() {
+            location.assign(`/profile`);
+        }
+        function like(pid, uid) {
+            console.log('pid', pid)
+            console.log('uid', uid)
+            fetch("/like", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ pid, uid }),
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log(result[0].likes)
+                document.getElementById('twt' + pid).innerHTML = result[0].likes;
+            })
+
 
         }
+
     </script>
 
 </body>
