@@ -1,0 +1,146 @@
+.container{
+    max-width: 1170px;
+    padding: 0px 16px;
+    margin: 0 auto;
+}
+
+.screen{
+    display: flex;
+    width: 100%; 
+}
+/* ***************************Navigation Bar************************* */
+
+.navigationbar{
+    width:20%;
+    position: fixed;
+    height: 100vh;
+    /* position: relative;
+    
+     z-index: 1; */
+    
+}
+
+.logo i{
+    color: #1DA1F2;
+}
+
+.logo{
+    height: 10%;
+    padding-top: 1rem;
+}
+
+.navigation{
+    height: 68%;
+    padding-top: 5rem;
+}
+
+.navrow{
+    display: flex;
+    margin-bottom: 1.8rem ;
+    cursor: pointer;
+}
+
+.navrow span{
+    padding-left: 1rem;
+    padding-top: 0.25rem;
+    font-size: large;
+}
+
+.tweetbtn{
+    width: 80%;
+    background-color: #1DA1F2;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+
+.profile{
+    display: flex;
+    height: 25%;
+}
+
+.profileimg{
+    width: 25%;
+}
+
+.profileimg img{
+    width: 3rem;
+    margin-right: 1rem;
+}
+
+.profileinfo{
+    width: 60%;
+}
+
+.name span{
+    font-weight: 600;
+}
+
+.username span{
+    color: grey;
+}
+
+.more{
+    width: 22%;
+}
+
+.more img{
+    width: 1rem;
+    margin-top: 0.5rem;
+}
+
+
+
+
+/* *************************Content Section************************** */
+
+.contentsection{
+    width: 80%;
+    margin-left: 20%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+table{
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    border: 2px solid rgba(128, 128, 128, 0.611);
+    padding: 3rem;
+    padding-left: 5rem;
+    border-radius: 1rem;
+    background-color: whitesmoke;
+}
+
+table input{
+    width: 80%;
+    border-radius: 10px;
+    height: 2rem;
+    margin-bottom: 2rem;
+    font-size:medium;
+    padding-left: 0.5rem;
+}
+
+.contentsection img{
+    width: 20%;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-bottom: 1rem;
+}
+
+.editbtn{
+    font-weight: bolder;
+    background-color: #1DA1F2;
+    color: white;
+    width: 84%;
+}
+
+.tweetsubmit>#file_input{
+    display: none;
+}
+
+
