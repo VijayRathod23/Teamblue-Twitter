@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+}
+
+/* ................name no. of tweet and backward arrow main div */
+.name_tweet {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ................backward arrow.......... */
+.backward_arrow {
+    display: flex;
+    align-items: center;
+    padding-right: 50px;
+    padding-left: 10px;
+}
+
+/* .......Back img portion without any img...... */
+.back_blank_space {
+    margin-top: 30px;
+    background-color: rgba(163, 155, 155, 0.3);
+    width: 100%;
+    height: 300px;
+}
+
+/* .............profile pic............. */
+
+.profile_pic {
+    border: 5px solid white;
+    padding: 10px;
+    margin-top: -125px;
+    margin-left: 20px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: rgb(29 161 242);
+}
+
+/* ........profile pic and edit btn div */
+
+.profile_pic_edit_btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* ..................edit btn. div.......... */
+.edit_profile {
+    margin-top: 20px;
+    margin-right: 70px;
+}
+
+/* ...................edit btn ancher tag..... */
+.edit_profile a {
+
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    text-decoration: none;
+    margin-left: 100px;
+    color: black;
+}
+
+/* ................content after pic..... */
+.content_after_pic {
+    margin-left: 20px;
+}
+
+/* .....................followers and following main div......... */
+.follows {
+    display: flex;
+
+}
+
+/* ........follower and following p tags each...... */
+.follows p {
+    padding-right: 10px;
+}
+
+/* ..................tweet and media main div......... */
+.tweet_media {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+/* .....................tweet.............. */
+.tweet {
+
+    width: 50%;
+    padding: 0px 20px;
+
+}
+
+/* ..........................media............. */
+.media {
+
+    width: 50%;
+    padding: 0px 20px;
+
+}
