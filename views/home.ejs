@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -57,7 +58,7 @@
                         <span>Profile</span>
                     </div>
 
-<!-- 
+                    <!-- 
                     <div class="navrow">
                         <a href="" class="tweetbtn">
                             <p>Tweet</p>
@@ -141,12 +142,22 @@
                                         <%if(tweets[i].media){%>
                                             <img src="<%=tweets[i].media%>" alt="img" class="tweetImg" />
                                             <%}%>
-                                            <div>
-                                                <form action="/tweets/<%= tweets[i].id %>/like" method="POST">
-                                                    <button type="submit">Like</button>
-                                                  </form>
-                                                  <p><strong>Likes:</strong> <%= tweets[i].likes %></p>
-                                            </div>
+                                                <div>
+                                                    <form action="/tweets/<%= tweets[i].id %>/like" method="POST">
+                                                        <button type="submit">Like</button>
+                                                    </form>
+                                                    <p><strong>Likes:</strong>
+                                                        <%= tweets[i].likes %>
+                                                    </p>
+                                                </div>
+                                                <!-- ...........retweet...................... -->
+                                                <div class="retweet">
+                                                    <a onclick="increment_count('<%= tweets[i].id %>')"><i
+                                                            class="fa fa-retweet"></i></a>
+                                                    <p class="cnt">
+                                                        <%=count[i]%>
+                                                    </p>
+                                                </div>
                                     </div>
                                 </div>
                             </div>
@@ -218,34 +229,54 @@
                 .then((search_data) => {
                     for (i = 0; i < search_data.length; i++) {
 
-                            s += `
+                        s += `
                         <div class="searchprofile">
                             <div class="profileimg">
-                                <img src="`+search_data[i].profile_pic+`" alt="">
+                                <img src="`+ search_data[i].profile_pic + `" alt="">
                             </div>
                             <div class="profileinfo">
                                 <div class="name">
                                     <span>`+
-                                        search_data[i].username+
-                                    `</span>
+                            search_data[i].username +
+                            `</span>
                                 </div>
                                 <div class="username">
                                     <span>`+
-                                        search_data[i].email+
-                                    `</span>
+                            search_data[i].email +
+                            `</span>
                                 </div>
                             </div>
                             <div class="followbtn">
                                 <p>Follow</p>
                             </div>
                         </div> `;
-                
+
                     }
                     document.getElementById('searchresult').innerHTML = s;
 
                 })
 
         }
+
+
+        //..............................retweet incrementation and database entry using fetch....................
+        // ..............................this fun is called when retweet btn is pressed....................
+        async function increment_count(tweet_id) {
+
+            var res = await fetch(`/retweet?tweet_id=${tweet_id}`);
+            var data = await res.json();
+            var cnt_increment = data.count;
+
+
+            window.location.reload();
+
+
+        }
+
+
+
+
+
     </script>
 
 </body>

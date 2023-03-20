@@ -208,13 +208,26 @@ app.get("/home", async (req, res) => {
     const selectData = await getdata(select);
 
     //
-     // harshupdate
-     const sql1= `select * from users limit 5;`;
-     const user_data= await getdata(sql1);
-     console.log("all user data",user_data)
+    // harshupdate
+    const sql1 = `select * from users limit 5;`;
+    const user_data = await getdata(sql1);
+    console.log("all user data", user_data)
+
+    //...................retweet count .......................
+    var count = new Array();
+    for (var i = 0; i < tweets.length; i++) {
+
+        const sql_retweet = `select count(id) as cnt from retweets where tweet_id = '${tweets[i].id}'`;
+        const retweet_cnt = await getdata(sql_retweet);
+        count.push(retweet_cnt[0].cnt);
+
+    }
+
+    console.log(count);
+
     
-     
-    res.render("home", { tokenData, selectData, tweets,user_data })
+    res.render("home", { tokenData, selectData, tweets, user_data, count })
+
 })
 
 
@@ -253,12 +266,12 @@ app.post("/edit_profile", upload.single('profile'), async (req, res) => {
     }
     const tokenData = jwt.verify(jwtToken, "user");
     const { username, dob, bio, location } = req.body;
-    if(req.file){
+    if (req.file) {
         var profileurl = 'http://127.0.0.1:3000/profiles/' + req.file.filename;
         var sql = `update users set username='${username}',profile_pic='${profileurl}',dob='${dob}',bio='${bio}',location='${location}' where id='${tokenData.id}'`
         var result = await getdata(sql);
         console.log(result)
-    }else{
+    } else {
         var sql = `update users set username='${username}',dob='${dob}',bio='${bio}',location='${location}' where id='${tokenData.id}'`
         var result = await getdata(sql);
     }
@@ -310,27 +323,102 @@ app.post("/tweet", upload2.single('media'), (req, res) => {
 app.post('/tweets/:id/like', (req, res) => {
     const tweetId = req.params.id;
     con.query(
-      'UPDATE tweets SET likes = likes + 1 WHERE id = ?',
-      [tweetId],
-      (err, result) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Error liking tweet');
-        } else {
-          res.redirect('/home');
+        'UPDATE tweets SET likes = likes + 1 WHERE id = ?',
+        [tweetId],
+        (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error liking tweet');
+            } else {
+                res.redirect('/home');
+            }
         }
-      }
     );
-  });
-  
+});
+
 //search
-app.get('/search',async(req,res)=>{
-    var search=req.query.search;
-    const sql2= `select * from users where username LIKE '${search}%'`;
-    const search_data= await getdata(sql2);
-    console.log("userdata",search_data);
+app.get('/search', async (req, res) => {
+    var search = req.query.search;
+    const sql2 = `select * from users where username LIKE '${search}%'`;
+    const search_data = await getdata(sql2);
+    console.log("userdata", search_data);
     res.json(search_data)
-    
+
 })
+
+
+
+
+//..............................................called after retweet icon is pressed..................
+app.get("/retweet", (req, res) => {
+
+    var tweet_id = req.query.tweet_id;  //...................................got tweet_id............
+    const jwtToken = req.cookies.jwtToken;
+
+    if (jwtToken) {
+        const tokenData = jwt.verify(jwtToken, "user");
+        const user_id = tokenData.id; // ..............................got user_id from token............
+
+        con.query(`select id from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`, (err, retweet_status) => {
+
+
+
+            //.................................check if already retweeted by this user then delete
+
+
+            if (retweet_status[0]) {
+
+                var del = getdata(`delete from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`);
+                con.query("select count(id) as cnt from retweets", (err, result) => {
+                    if (err) throw err;
+
+                    var count = result[0].cnt;
+                    res.json({ count });
+
+                });
+
+            }
+
+            //.....................................else insert into retweets.....................
+            else {
+
+                var sql = `insert into retweets (user_id, tweet_id) value ('${user_id}','${tweet_id}')`;
+
+                //.....................................insert into retweets..........................
+
+                con.query(sql, (err, result) => {
+                    if (err) throw err;
+
+
+                    //...................................
+                    con.query("select count(id) as cnt from retweets", (err, result) => {
+                        if (err) throw err;
+
+                        var count = result[0].cnt;
+                        res.json({ count });
+
+                    });
+
+                })
+
+            }
+
+        });
+
+    }
+
+
+    else {
+        res.redirect("/login");
+    }
+})
+
+
+
+
+
+
+
+
 
 app.listen(3000);

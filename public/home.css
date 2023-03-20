@@ -1,49 +1,50 @@
-.container{
+.container {
     max-width: 1170px;
     padding: 0px 16px;
     margin: 0 auto;
 }
 
-.screen{
+.screen {
     display: flex;
-    width: 100%; 
+    width: 100%;
 }
+
 /* ***************************Navigation Bar************************* */
 
-.navigationbar{
-    width:20%;
+.navigationbar {
+    width: 20%;
     position: fixed;
     height: 100vh;
-    
+
 }
 
-.logo i{
+.logo i {
     color: #1DA1F2;
 }
 
-.logo{
+.logo {
     height: 10%;
     padding-top: 1rem;
 }
 
-.navigation{
+.navigation {
     height: 68%;
     padding-top: 5rem;
 }
 
-.navrow{
+.navrow {
     display: flex;
-    margin-bottom: 1.8rem ;
+    margin-bottom: 1.8rem;
     cursor: pointer;
 }
 
-.navrow span{
+.navrow span {
     padding-left: 1rem;
     padding-top: 0.25rem;
     font-size: large;
 }
 
-.tweetbtn{
+.tweetbtn {
     width: 80%;
     background-color: #1DA1F2;
     border-radius: 25px;
@@ -54,37 +55,37 @@
     color: white;
 }
 
-.profile{
+.profile {
     display: flex;
     height: 25%;
 }
 
-.profileimg{
+.profileimg {
     width: 25%;
 }
 
-.profileimg img{
+.profileimg img {
     width: 3rem;
     margin-right: 1rem;
 }
 
-.profileinfo{
+.profileinfo {
     width: 60%;
 }
 
-.name span{
+.name span {
     font-weight: 600;
 }
 
-.username span{
+.username span {
     color: grey;
 }
 
-.more{
+.more {
     width: 22%;
 }
 
-.more img{
+.more img {
     width: 1rem;
     margin-top: 0.5rem;
 }
@@ -94,7 +95,7 @@
 
 /* *************************Content Section************************** */
 
-.contentsection{
+.contentsection {
     width: 70%;
     margin-left: 20%;
 }
@@ -103,31 +104,31 @@
     width: 70%;
 } */
 
-.tweetform{
+.tweetform {
     display: flex;
 }
 
-.tweetform img{
+.tweetform img {
     width: 10%;
     height: 10%;
     padding-top: 1rem;
 }
 
-.tweetform input{
+.tweetform input {
     padding: 2rem;
     width: 85%;
     border: none;
     font-size: 1rem;
 }
 
-.tweetsubmit{
+.tweetsubmit {
     display: flex;
     padding-top: 0.5rem;
     padding-left: 10%;
 }
 
 
-.tweetsubmit .tweet{
+.tweetsubmit .tweet {
     width: 25%;
     margin-left: 8rem;
     padding-top: 0.5rem;
@@ -140,16 +141,16 @@
     /* justify-content: end; */
 }
 
-.tweetsubmit i{
+.tweetsubmit i {
     color: #1DA1F2;
     padding-top: 0.5rem;
 }
 
-.tweetsubmit>#file_input{
+.tweetsubmit>#file_input {
     display: none;
 }
 
-.contentsection form{
+.contentsection form {
     width: 80%;
     border: 2px solid rgba(128, 128, 128, 0.193);
     margin-left: 2rem;
@@ -157,7 +158,7 @@
     padding: 1rem;
 }
 
-.tweets{
+.tweets {
     margin-top: 2rem;
     padding: 2rem;
     width: 75%;
@@ -165,24 +166,37 @@
     margin-left: 2rem;
     border-radius: 2rem;
 }
-.post__avatar{
+
+.post__avatar {
     width: 40px;
 }
 
-.tweetImg{
+.tweetImg {
     width: 50%;
 }
 
+/* ********************Retweet section********************************* */
+.retweet {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
+}
+
+/* ****************where no. of retweet is display************ */
+.cnt {
+
+    padding-left: 10px;
+}
 
 
 /* *****************Search and Suggestion Section************* */
 
-.searchsection{
+.searchsection {
     width: 30%;
 }
 
-.searchbar{
+.searchbar {
     border: 1px solid grey;
     border-radius: 10px;
     padding-top: 0.25rem;
@@ -190,23 +204,23 @@
     margin-top: 1rem;
 }
 
-.searchbar input{
+.searchbar input {
     border: none;
     outline: none;
-   
-    
+
+
 }
 
-.searchbar span i{
+.searchbar span i {
     padding-left: 0.5rem;
 }
 
-.searchprofile{
+.searchprofile {
     margin-top: 2rem;
     display: flex;
 }
 
-.followbtn p{
+.followbtn p {
     background-color: #1DA1F2;
     color: white;
     border-radius: 10px;
@@ -214,15 +228,15 @@
     margin-top: 0px;
 }
 
-#searchprofilebar{
+#searchprofilebar {
     background-color: #F5F8FA;
     padding: 0.5rem;
     margin-top: 5rem;
-    
+
 }
 
 
 /* tweet main container style */
-.tweet-main{
+.tweet-main {
     margin-bottom: 2rem;
 }
