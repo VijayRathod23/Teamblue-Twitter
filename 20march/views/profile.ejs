@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+    <link rel="stylesheet" href="/profile.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="screen">
+
+            <!-- *********************Navigation Bar********************** -->
+
+            <div class="navigationbar">
+                <!-- ************logo******************** -->
+                <div class="logo">
+                    <i class="fa-brands fa-twitter fa-3x"></i>
+                </div>
+                <!-- ************navigation******************** -->
+
+                <div class="navigation">
+
+                    <div class="navrow home" onclick="home()">
+                        <i class="fa-solid fa-house fa-2x"></i>
+                        <span>Home</span>
+                    </div>
+
+                    <div class="navrow explore">
+                        <i class="fa-solid fa-hashtag fa-2x"></i>
+                        <span>Explore</span>
+                    </div>
+
+                    <div class="navrow notifications">
+                        <i class="fa-regular fa-bell fa-2x"></i>
+                        <span>Notifications</span>
+                    </div>
+
+                    <div class="navrow messages">
+                        <i class="fa-regular fa-envelope fa-2x"></i>
+                        <span>Messages</span>
+                    </div>
+
+                    <div class="navrow profile" onclick="profile()">
+                        <i class="fa-regular fa-user fa-2x"></i>
+                        <span>Profile</span>
+                    </div>
+
+                    <!-- <div class="navrow">
+                        <a href="" class="tweetbtn">
+                            <p>Tweet</p>
+                        </a>
+                    </div> -->
+
+                </div>
+
+
+
+                <!-- ************profile******************** -->
+
+                <div class="profile">
+                    <div class="profileimg">
+                        <img src="<%=selectData[0].profile_pic%>" alt="">
+                    </div>
+                    <div class="profileinfo">
+                        <div class="name">
+                            <span><%=selectData[0].username%></span>
+                        </div>
+                        <div class="username">
+                            <span><%=selectData[0].email%></span>
+                        </div>
+                    </div>
+                    <div class="more">
+                        <img src="/images/more.png" alt="">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- *********************Content Section********************** -->
+            <div class="contentsection">
+
+                <!-- ......................................name and no. of tweets portion.................. -->
+                <div class="headerinfo">
+
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    <div class="name_tweet">
+                        <span class="name_user"><%=selectData[0].username%></span>
+                        <span>1 Tweets</span>
+                    </div>
+
+                </div>
+                <!-- ...............................................Back img portion without any img............................... -->
+                <div class="back_blank_space">
+                </div>
+
+                <!-- ...............................................Profile pic and edit profile btn main div......................... -->
+                <div class="profile_pic_edit_btn">
+                    <!-- ................................Profile pic...................... -->
+                    <div class="profile_pic">
+                        <img src="<%=selectData[0].profile_pic%>" alt="Name">
+
+                    </div>
+
+                    <!-- .......................................Edit profile btn................... -->
+
+                    <div class="edit_profile">
+                        <a href="/edit_profile">Edit profile</a>
+                    </div>
+                     <div class="edit_profile">
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+
+                <!--.............................................Content that display after profile pic main div..................... -->
+                <div class="content_after_pic">
+                    <!-- <p><strong>HarshPatel002</strong></p>
+                    <p>@emailid</p>
+                    <p><img src="/images/date_picker.png" width="15px" height="15px"> joined March 2023</p>
+                     -->
+
+                    <div class="name_email">
+
+                        <span class="profile_name"><%=selectData[0].username%></span>
+                        <span class="profile_email"><%=selectData[0].email%></span>
+                    </div>
+
+                    <div class="home_join_date">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span>Joined March 2023</span>
+
+                    </div>
+
+                    <div class="follows">
+                        <p><strong>#1</strong> Following</p>
+                        <p><strong>#1</strong> Followers</p>
+                    </div>
+
+                </div>
+
+                <!-- .........................................Tweet and Media portion.................. -->
+
+                <!-- .................................tweet media main div......................... -->
+                <div class="tweet_media">
+                    <!-- ................................Tweet..................... -->
+                    <div class="tweet">
+                        <p>Tweets</p>
+
+                    </div>
+                    <!-- .....................................media....................... -->
+                    <div class="media">
+                        <p>Media</p>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function home() {
+            location.assign(`/home`);
+        }
+
+        function profile() {
+            location.assign(`/profile`);
+        }
+
+    </script>
+
+</body>
+
+</html>
