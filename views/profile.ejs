@@ -6,14 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter</title>
-
     <link rel="stylesheet" href="/profile.css">
-
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <body>
 
@@ -23,17 +22,10 @@
             <!-- *********************Navigation Bar********************** -->
 
             <div class="navigationbar">
-
-
-
                 <!-- ************logo******************** -->
-
                 <div class="logo">
                     <i class="fa-brands fa-twitter fa-3x"></i>
                 </div>
-
-
-
                 <!-- ************navigation******************** -->
 
                 <div class="navigation">
@@ -63,11 +55,11 @@
                         <span>Profile</span>
                     </div>
 
-                    <div class="navrow">
+                    <!-- <div class="navrow">
                         <a href="" class="tweetbtn">
                             <p>Tweet</p>
                         </a>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -81,10 +73,14 @@
                     </div>
                     <div class="profileinfo">
                         <div class="name">
-                            <span><%=selectData[0].username%></span>
+                            <span>
+                                <%=selectData[0].username%>
+                            </span>
                         </div>
                         <div class="username">
-                            <span><%=selectData[0].email%></span>
+                            <span>
+                                <%=selectData[0].email%>
+                            </span>
                         </div>
                     </div>
                     <div class="more">
@@ -92,11 +88,7 @@
                     </div>
                 </div>
 
-
-
             </div>
-
-
 
             <!-- *********************Content Section********************** -->
             <div class="contentsection">
@@ -108,7 +100,9 @@
                     <i class="fa-solid fa-arrow-left"></i>
 
                     <div class="name_tweet">
-                        <span class="name_user"><%=selectData[0].username%></span>
+                        <span class="name_user">
+                            <%=selectData[0].username%>
+                        </span>
                         <span>1 Tweets</span>
                     </div>
 
@@ -130,7 +124,7 @@
                     <div class="edit_profile">
                         <a href="/edit_profile">Edit profile</a>
                     </div>
-                     <div class="edit_profile">
+                    <div class="edit_profile">
                         <a href="/logout">Logout</a>
                     </div>
                 </div>
@@ -144,8 +138,12 @@
 
                     <div class="name_email">
 
-                        <span class="profile_name"><%=selectData[0].username%></span>
-                        <span class="profile_email"><%=selectData[0].email%></span>
+                        <span class="profile_name">
+                            <%=selectData[0].username%>
+                        </span>
+                        <span class="profile_email">
+                            <%=selectData[0].email%>
+                        </span>
                     </div>
 
                     <div class="home_join_date">
@@ -154,38 +152,45 @@
 
                     </div>
 
-                    <div class="follows">
-                        <p onclick="follow(`<%=selectData[0].id%>`)"><strong>#1</strong> Following</p>
-                        <p onclick="follower(`<%=selectData[0].id%>`)"><strong>#1</strong> Followers</p>
-                       
+                    <!-- kinjal -->
+
+                    <div onclick="newfollow()">
+                           here 
                     </div>
 
+                    <div class="follows">
+                        <p onclick="newfollow()"><strong><%=followdata[0].follow%></strong> Following</p>
+                        <p onclick="newfollow()"><strong><%=followerdata[0].follower%></strong> Followers</p>
+
+                    </div>
                     <!-- followerlist display -->
                     <p id="followercount" style="background-color:red;border:1px solid;font-weight: 200;"></p>
                     <p id="follower"></p>
 
                 </div>
 
-                <!-- .........................................Tweet and Media portion.................. -->
-
-                <!-- .................................tweet media main div......................... -->
-                <div class="tweet_media">
-                    <!-- ................................Tweet..................... -->
-                    <div class="tweet">
-                        <p>Tweets</p>
-
-                    </div>
-                    <!-- .....................................media....................... -->
-                    <div class="media">
-                        <p>Media</p>
-
-                    </div>
-                </div>
-
             </div>
 
+            <!-- .........................................Tweet and Media portion.................. -->
+
+            <!-- .................................tweet media main div......................... -->
+            <div class="tweet_media">
+                <!-- ................................Tweet..................... -->
+                <div class="tweet">
+                    <p>Tweets</p>
+
+                </div>
+                <!-- .....................................media....................... -->
+                <div class="media">
+                    <p>Media</p>
+
+                </div>
+            </div>
 
         </div>
+
+
+    </div>
 
     </div>
 
@@ -196,81 +201,212 @@
             location.assign(`/home`);
         }
 
+
         function profile() {
             location.assign(`/profile`);
         }
 
+        //kinjal
+
+        //newfollow
+        function newfollow() {
+            location.assign(`/newfollow`);
+        }
+
         //following list
-       function follow(id){
-        // console.log('function call')
-           
-           // document.getElementById(`${id}`).style.backgroundColor = "yellow";
+        function follow(id) {
+            // console.log('function call')
+
+            // document.getElementById(`${id}`).style.backgroundColor = "yellow";
             var listed = document.getElementById("follower");
-            var followercount = document.getElementById("followercount");
-            var s ="";
-            console.log("hiii",id)
-            fetch(`/follow?id=${id}` )
-            .then((res) =>{return res.json()})
-            .then((resultdata) => 
+            // var followercount = document.getElementById("followercount");
+            var s = "";
+            console.log("hiii", id)
+            fetch(`/follow?id=${id}`)
+                .then((res) => { return res.json() })
+                .then((resultdata) => {
+                    //console.log("follower")
+                    console.log(resultdata.length)
 
-                    {
-                        //console.log("follower")
-                        console.log(resultdata.length)
+                    var counted = resultdata.length;
+                    // followercount.innerHTML = counted;
 
-                        var counted = resultdata.length;
-                        followercount.innerHTML =  counted;
+                    //listing of followers
 
-                        //listing of followers
+                    for (var x = 0; x < resultdata.length; x++) {
 
-                        for(var x=0;x<resultdata.length;x++){
-                        
-                                s+=` <div><p>${resultdata[x].f_id}</p></div>`
+                        s += `<div class="contentsection">
+                                <div class="profile">
+                                    <div class="profileimg">
+                                        <img src="${resultdata[x].f_profile_pic}" alt="">
+                                    </div>
+                                    <div class="profileinfo">
+                                        <div class="email">
+                                            <span>${resultdata[x].f_email}</span>
+                                        </div>
+                                        <div class="username">
+                                            <span>${resultdata[x].f_username}</span>
+                                        </div>
+                                        <div class="followbtn">
+                                            <p id="follow${resultdata[x].f_id}" onclick="Unfollow('${resultdata[x].f_id}',
+                                            '${resultdata[x].f_profile_pic}',
+                                            '${resultdata[x].f_email}','${resultdata[x].f_username}')">Following</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                </div>`
 
-                        }
-    
-                            listed.innerHTML=s;
-                        // console.log(s)                 
-                    })
-    
+
+                    }
+
+                    listed.innerHTML = s;
+                    // console.log(s)                 
+                })
+
 
         }
 
 
         //followers list
-        function follower(id){
+        function follower(id) {
 
             console.log('function call')
-           
-           // document.getElementById(`${id}`).style.backgroundColor = "yellow";
+
+            // document.getElementById(`${id}`).style.backgroundColor = "yellow";
             var listed = document.getElementById("follower");
-            var followercount = document.getElementById("followercount");
-            var s ="";
-            console.log("hiii",id)
-            fetch(`/postfollower?id=${id}` )
-            .then((res) =>{return res.json()})
-            .then((resultdata) => 
+            // var followercount = document.getElementById("followercount");
+            var s = "";
+            console.log("heyyy", id)
+            fetch(`/postfollower?id=${id}`)
+                .then((res) => { return res.json() })
+                .then((resultdata) => {
+                    //console.log("follower")
+                    console.log(resultdata.length)
 
-                    {
-                        //console.log("follower")
-                        console.log(resultdata.length)
+                    var counted = resultdata.length;
+                    // followercount.innerHTML = counted;
 
-                        var counted = resultdata.length;
-                        followercount.innerHTML =  counted;
+                    //listing of followers
 
-                        //listing of followers
+                    for (var x = 0; x < resultdata.length; x++) {
 
-                        for(var x=0;x<resultdata.length;x++){
-                        
-                                s+=` <div><p>${resultdata[x].user_id}</p></div>`
+                        s +=
 
-                        }
-    
-                            listed.innerHTML=s;
-                        // console.log(s)                 
-                    })
-    
+                            ` <div id=div'${resultdata[x].user_id}' class="profile">
+                                    <div class="profileimg">
+                                        <img src="${resultdata[x].u_profile_pic}" alt="">
+                                    </div>
+                                    <div class="profileinfo">
+                                        <div class="email">
+                                            <span>${resultdata[x].u_email}</span>
+                                        </div>
+                                        <div class="username">
+                                            <span>${resultdata[x].username}</span>
+                                        </div>
+                                        <div class="followbtn">
+                                            <p id="follow${resultdata[x].user_id}" onclick="rmfollower('${resultdata[x].user_id}',
+                                            '${resultdata[x].u_profile_pic}',
+                                            '${resultdata[x].u_email}','${resultdata[x].username}')">Follower</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>`
+
+                    }
+
+                    listed.innerHTML = s;
+                    // console.log(s)                 
+                })
+
 
         }
+
+        function Unfollow(id, profile_pic, email, username) {
+
+            swal({
+                title: "Are you sure?",
+                text: "Once Unfollowed, you will not be able to see the content of this account!",
+                icon: "warning",
+                buttons: ["Cancel", "Unfollow"],
+
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Poof! This account has been Unfollowed!", {
+                            icon: "success",
+                        });
+                        console.log("follow func")
+                        console.log(`${id}`)
+                        console.log("hiii", id, profile_pic, email, username)
+
+                        var listed = document.getElementById(`follow${id}`);
+                        // var followcount = document.getElementById("followcount");
+                        var s = "";
+                        fetch(`/post-Unfollow?id=${id}&profile_pic=${profile_pic}&f_email=${email}&username=${username}`)
+
+                            .then(res => res.json())
+                            .then((resultdata) => {
+                                console.log("resultdata")
+
+                                var counted = resultdata.length;
+                                //  console.log(resultdata.length)
+
+                                s += `Follow`
+                                listed.innerHTML = s;
+                            });
+                    } else {
+                        swal("You are following this account !");
+                    }
+                });
+
+
+
+
+        }
+        function rmfollower(id, profile_pic, email, username) {
+
+            swal({
+                title: "Are you sure?",
+                text: "Once Removed, They will not be able to see the content of Your account!",
+                icon: "warning",
+                buttons: ["Cancel", "Remove"],
+
+            })
+                .then((willDelete) => {
+
+                    if (willDelete) {
+
+                        console.log("follow func")
+                        console.log(`${id}`)
+                        console.log("hiii", id, profile_pic, email, username)
+                        var listed = document.getElementById(`follow${id}`);
+                        // var followcount = document.getElementById("followcount");
+                        var s = "";
+                        fetch(`/post-rm-follower?id=${id}&profile_pic=${profile_pic}&f_email=${email}&username=${username}`)
+
+                            .then(res => res.json())
+                            .then((resultdata) => {
+                                console.log("resultdata")
+
+                                var counted = resultdata.length;
+                                //  console.log(resultdata.length)
+
+                                s += `removed`
+                                listed.innerHTML = s;
+                            })
+                    }
+
+                    else {
+                        text = "You canceled!";
+                    }
+                });
+
+        }
+
+
+
+
 
     </script>
 
