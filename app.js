@@ -256,28 +256,39 @@ app.get("/profile", async (req, res) => {
     const retweet_data = await getdata(select_retweet);
 
     //..............if any retweet found for particular user
-    if (retweet_data[0]) {
+    
 
-
-        const retweeted_tweet_id = retweet_data[0].tweet_id;
-        const tweet_select = `select * from tweets where id = '${retweeted_tweet_id}'`;
-        const tweet_data = await getdata(tweet_select);
-
-        const sql = `SELECT * FROM tweets ORDER BY created_at DESC`;
-        const tweets = await getdata(sql);
-        //...................retweet count .......................
         var count = new Array();
-        for (var i = 0; i < tweets.length; i++) {
+        var tweet_data = new Array();
+        if (retweet_data[0]) {
+for(var i = 0; i<retweet_data.length ; i++){
+    
+        var retweeted_tweet_id = retweet_data[i].tweet_id;
+        console.log(retweeted_tweet_id);
+        var tweet_select = `select * from twitter_clone.tweets where id = '${retweeted_tweet_id}'`;
+        
+        var tweet_data_1 = await getdata(tweet_select);
 
-            const sql_retweet = `select count(id) as cnt from retweets where tweet_id = '${tweets[i].id}'`;
-            const retweet_cnt = await getdata(sql_retweet);
-            count.push(retweet_cnt[0].cnt);
-
-        }
+        
+        tweet_data.push(tweet_data_1[0]);
 
 
-        res.render("profile", { tokenData, selectData, tweet_data, count })
+
+        var sql_retweet = `select count(id) as cnt from retweets where tweet_id = '${retweeted_tweet_id}'`;
+        var retweet_cnt = await getdata(sql_retweet);
+        count.push(retweet_cnt[0].cnt);
+
+        
+        //...................retweet count .......................
+        // var count = new Array();
+       
+       
     }
+   
+
+   
+    res.render("profile", { tokenData, selectData, tweet_data, count })
+}
     else {
         res.render("profile", { tokenData, selectData, tweet_data: 0 })
 
