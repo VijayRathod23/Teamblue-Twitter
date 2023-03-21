@@ -1,0 +1,257 @@
+.container{
+    max-width: 1170px;
+    padding: 0px 16px;
+    margin: 0 auto;
+}
+
+.screen{
+    display: flex;
+    width: 100%; 
+}
+/* ***************************Navigation Bar************************* */
+
+.navigationbar{
+    width:20%;
+    position: fixed;
+    height: 100vh;
+    /* position: relative;
+    
+     z-index: 1; */
+    
+}
+
+.logo i{
+    color: #1DA1F2;
+}
+
+.logo{
+    height: 10%;
+    padding-top: 1rem;
+}
+
+.navigation{
+    height: 68%;
+    padding-top: 5rem;
+}
+
+.navrow{
+    display: flex;
+    margin-bottom: 1.8rem ;
+    cursor: pointer;
+}
+
+.navrow span{
+    padding-left: 1rem;
+    padding-top: 0.25rem;
+    font-size: large;
+}
+
+.tweetbtn{
+    width: 80%;
+    background-color: #1DA1F2;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+
+.profile{
+    display: flex;
+    height: 25%;
+}
+
+.profileimg{
+    width: 25%;
+}
+
+.profileimg img{
+    width: 3rem;
+    margin-right: 1rem;
+}
+
+.profileinfo{
+    width: 60%;
+}
+
+.name span{
+    font-weight: 600;
+}
+
+.username span{
+    color: grey;
+}
+
+.more{
+    width: 22%;
+}
+
+.more img{
+    width: 1rem;
+    margin-top: 0.5rem;
+}
+
+
+
+
+/* *************************Content Section************************** */
+
+.contentsection{
+    width: 80%;
+    margin-left: 20%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.name_tweet {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ................headerinfo.......... */
+.headerinfo{
+    display: flex;
+}
+
+.headerinfo i{
+    padding-top: 0.6rem;
+}
+
+.name_tweet{
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.name_tweet .name_user{
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.backward_arrow i{
+    color: black;
+}
+
+/* .......Back img portion without any img...... */
+.back_blank_space {
+    margin-top: 1rem;
+    background-color: rgba(163, 155, 155, 0.3);
+    width: 100%;
+    height: 60%;
+}
+
+/* .............profile pic............. */
+
+.profile_pic img{
+    border: 5px solid white;
+    margin-top: -105px;  
+    margin-left: 20px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    /* background-color: rgb(29 161 242); */
+    /* padding: 2%; */
+}
+
+/* .profile_pic img{
+    width: 8rem;
+    height: 8rem;
+} */
+
+/* ........profile pic and edit btn div */
+
+.profile_pic_edit_btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* ..................edit btn. div.......... */
+.edit_profile {
+    margin-top: 20px;
+    margin-right: 70px;
+}
+
+/* ...................edit btn ancher tag..... */
+.edit_profile a {
+
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    text-decoration: none;
+    margin-left: 100px;
+    color: black;
+}
+.name_email{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_name{
+    font-weight: bolder;
+    font-size: larger;
+    margin-top: 0.5rem;
+}
+
+.profile_email{
+    color: grey;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.home_join_date{
+    color: grey;
+}
+
+/* ................content after pic..... */
+.content_after_pic {
+    margin-left: 20px;
+}
+
+.follows p strong{
+    font-size: large;
+}
+
+/* .....................followers and following main div......... */
+.follows {
+    display: flex;
+}
+
+/* ........follower and following p tags each...... */
+.follows p {
+    padding-right: 1rem;
+}
+
+/* ..................tweet and media main div......... */
+.tweet_media {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+/* .....................tweet.............. */
+.tweet {
+
+    width: 50%;
+    padding: 0px 20px;
+
+}
+
+/* ..........................media............. */
+.media {
+
+    width: 50%;
+    padding: 0px 20px;
+
+}
+
+
