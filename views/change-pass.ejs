@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Yinka Enoch Adedokun">
+        <meta name="description" content="Simple Forgot Password Page Using HTML and CSS">
+        <meta name="keywords" content="forgot password page, basic html and css">
+        <title>Forgot Password Page </title>
+        <link rel="stylesheet" href="/forgetpass.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        <div class="row">
+            <form action="/save-pass" id="form" method="post" onsubmit="return validate()">
+                <div class="logo">
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+                <h1>Change Your Password</h1>
+                <h4 class="information-text">Enter new password and confirm password!</h4>
+            <div class="form-group">
+                <input type="password" placeholder="New Password" name="newpass" id="pass">
+                <input type="password" placeholder="Confirm Password" id="cpass">
+                <button type="submit">Change Password</button>
+            </div>
+            <p id="err"></p>
+        </form>
+        </div>
+    </body>
+    <script>
+        const err = document.getElementById('err');
+       
+        function validate(){
+            const password = document.getElementById('pass').value;
+            const cpassword = document.getElementById('cpass').value;
+            var passw = /^(?=.*[-\#\$\.\%\&\@\!\+\=\\*])(?=.*[a-zA-Z])(?=.*\d).{6,12}$/;
+            if(password !== cpassword){
+                err.innerHTML = 'Password did not matched!';
+                err.style.color = "red";
+                return false
+            } 
+            if( password.length < 6){
+                err.innerHTML = 'password must be 6 character long!';
+                err.style.color = "red";
+                return false;
+            }
+            if( password === ""){
+                err.innerHTML = 'password must requred!';
+                err.style.color = "red";
+                return false;
+            }
+            if(!password.match(passw)) {
+            document.getElementById("err").innerHTML = "**password should contain latters,numbers and specialchar"
+            return false;
+            }
+            if(password === cpassword){
+                err.innerHTML = 'Password Matched!';
+                err.style.color = "green";
+                return true;
+            }
+            
+        }
+    </script>
+</html>

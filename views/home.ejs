@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+
+    <link rel="stylesheet" href="/home.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- Emoji Picker Script -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="screen">
+            <!-- *********************Navigation Bar********************** -->
+            <div class="navigationbar">
+                <!-- ************logo******************** -->
+                <div class="logo">
+                    <i class="fa-brands fa-twitter fa-3x"></i>
+                </div>
+
+
+
+                <!-- ************navigation******************** -->
+
+                <div class="navigation">
+
+                    <div class="navrow home">
+                        <i class="fa-solid fa-house fa-2x"></i>
+                        <span>Home</span>
+                    </div>
+
+                    <div class="navrow explore">
+                        <i class="fa-solid fa-hashtag fa-2x"></i>
+                        <span>Explore</span>
+                    </div>
+
+                    <div class="navrow notifications">
+                        <i class="fa-regular fa-bell fa-2x"></i>
+                        <span>Notifications</span>
+                    </div>
+
+                    <div class="navrow messages">
+                        <i class="fa-regular fa-envelope fa-2x"></i>
+                        <span>Messages</span>
+                    </div>
+
+                    <div class="navrow profile" onclick="profile()">
+                        <i class="fa-regular fa-user fa-2x"></i>
+                        <span>Profile</span>
+                    </div>
+
+                    <!-- 
+                    <div class="navrow">
+                        <a href="" class="tweetbtn">
+                            <p>Tweet</p>
+                        </a>
+                    </div> -->
+
+                </div>
+
+
+
+                <!-- ************profile******************** -->
+
+                <div class="profile">
+                    <%if(selectData[0].length !=0) {%>
+                        <div class="profileimg">
+                            <img src="<%=selectData[0].profile_pic%>" alt="">
+                        </div>
+                        <%}%>
+                            <div class="profileinfo">
+                                <div class="name">
+                                    <span>
+                                        <%=selectData[0].username%>
+                                    </span>
+                                </div>
+                                <div class="username">
+                                    <span>
+                                        <%=selectData[0].email%>
+                                    </span>
+                                </div>
+                            </div>
+                           
+                </div>
+            </div>
+
+            <!-- *********************Content Section********************** -->
+            <div class="contentsection">
+                <h1>Home</h1>
+
+                <form action="/tweet" method="post" enctype="multipart/form-data">
+                    <div class="tweetform">
+                        <img src="<%=selectData[0].profile_pic%>" alt="">
+                        <input type="text" name="tweet_text" id="tweetformcontent" placeholder="What's Happening?">
+                    </div>
+                    <div class="tweetsubmit">
+                        <label for="file_input">
+                            <!-- <img src="" alt="" srcset=""> -->
+                            <i class="fa-regular fa-image "></i>
+                        </label>
+                        <input type="file" id="file_input" name="media">
+
+
+                        <div class="emojiicon" onclick="abc()">
+                            <i class="fa-regular fa-face-smile"></i>
+
+                            <emoji-picker></emoji-picker>
+                        </div>
+
+                        <!-- <i class="fa-regular fa-image "><input type="file" name="file"></i> -->
+                        <input type="submit" value="Tweet" class="tweet">
+                    </div>
+                </form>
+
+                <div class="tweet-main">
+                    <!-- post starts -->
+                    <%if(tweets.length !=0){%>
+                        <%for(let i=0; i<tweets.length; i++){%>
+                            <div class="tweets">
+                                <div class="post">
+                                    <div class="post__avatar">
+                                        <img src="<%=tweets[i].profile_pic%>" alt="img" class="post__avatar" />
+                                    </div>
+                                    <div class="post__body">
+                                        <div class="post__header">
+                                            <div class="post__headerText">
+                                                <h3>
+                                                    <%=tweets[i].username%>
+                                                        <span class="post__headerSpecial"><span
+                                                                class="material-icons post__badge">
+                                                                <!-- </span>@<%=selectData[0].email%></span> -->
+                                                </h3>
+                                            </div>
+                                            <div class="post__headerDescription">
+                                                <p>
+                                                    <%=tweets[i].tweet_text%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <%if(tweets[i].media){%>
+                                            <img src="<%=tweets[i].media%>" alt="img" class="tweetImg" />
+                                            <%}%>
+                                                <!-- <div>
+                                                <form action="/tweets/<%= tweets[i].id %>/like" method="POST">
+                                                    <button type="submit">Like</button>
+                                                  </form>
+                                                  <p><strong>Likes:</strong> <%= tweets[i].likes %></p>
+                                            </div> -->
+
+                                                <div class="post-footer">
+                                                    <div class="btn-container">
+                                                        <input type="hidden" value="<%=tweets[i].id%>" name="tweetid">
+                                                        <div class="twt-toggle"
+                                                            onclick="comment('<%=tweets[i].id%>','<%=tweets[i].user_id%>')">
+                                                            <i class="fa-regular fa-comment"></i>
+                                                            comments
+                                                        </div>
+                                                        <div class="twt-toggle"><i class="fa-solid fa-heart"
+                                                                onclick="like('<%=tweets[i].id%>','<%=tweets[i].user_id%>')"></i>
+                                                            <span id="twt<%=tweets[i].id%>">
+                                                                <%=tweets[i].likes%>
+                                                            </span>
+                                                        </div>
+                                                        <div class="twt-toggle">
+                                                            <a onclick="increment_count('<%= tweets[i].id %>')"><i
+                                                                    class="fa-solid fa-retweet"></i></a>
+                                                            <p id="retwt<%=tweets[i].id%>">
+                                                                <%=count[i]%>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="commentsection<%=tweets[i].id%>" class="commentsection">
+                                                        <!-- fetch the comments from the database -->
+                                                    </div>
+
+                                                    <div id="comment<%=tweets[i].id%>" class="comment">
+
+                                                        <input type="text" name="commentfield"
+                                                            id="commentfield<%=tweets[i].id%>"
+                                                            placeholder="Please Enter Comment" class="commentfield">
+                                                        <input type="submit" value="Reply" class="commentbtn"
+                                                            onclick="commentdata('<%=tweets[i].id%>','<%=selectData[0].id%>','<%=selectData[0].username%>','<%=selectData[0].profile_pic%>')">
+
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <%}%>
+                                    <!-- post ends -->
+                </div>
+
+
+
+            </div>
+            <!-- ********************Search and Suggestion Section************ -->
+            <div class="searchsection">
+
+                <div class="searchbar">
+                    <span>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" name="search" id="search" placeholder="Search Here" onkeydown="search()">
+                </div>
+
+                <div id="searchresult">
+                </div>
+                <div id="searchprofilebar">
+                    <h2>You might like</h2>
+                    <%for(i=0;i<user_data.length;i++){%>
+                        <div class="searchprofile">
+                            <div class="profileimg">
+                                <img src="<%=user_data[i].profile_pic%>" alt="">
+                            </div>
+                            <div class="profileinfo">
+                                <div class="name">
+                                    <span>
+                                        <%=user_data[i].username%>
+                                    </span>
+                                </div>
+                                <div class="username">
+                                    <span>
+                                        <%=user_data[i].email%>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="followbtn">
+                                <p>Follow</p>
+                            </div>
+                        </div>
+
+                        <%}%>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function profile() {
+            location.assign(`/profile`);
+        }
+
+        async function search() {
+            var search = document.getElementById('search').value;
+            var s = "";
+
+            await fetch(`http://localhost:3000/search?search=${search}`)
+                .then(res => res.json())
+                .then((search_data) => {
+                    for (i = 0; i < search_data.length; i++) {
+
+                        s += `
+                        <div class="searchprofile">
+                            <div class="profileimg">
+                                <img src="`+ search_data[i].profile_pic + `" alt="">
+                            </div>
+                            <div class="profileinfo">
+                                <div class="name">
+                                    <span>`+
+                            search_data[i].username +
+                            `</span>
+                                </div>
+                                <div class="username">
+                                    <span>`+
+                            search_data[i].email +
+                            `</span>
+                                </div>
+                            </div>
+                            <div class="followbtn">
+                                <p>Follow</p>
+                            </div>
+                        </div> `;
+
+                    }
+                    document.getElementById('searchresult').innerHTML = s;
+
+                })
+        }
+
+        function profile() {
+            location.assign(`/profile`);
+        }
+
+        function like(pid, uid) {
+            console.log('pid', pid)
+            console.log('uid', uid)
+            fetch("/like", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ pid, uid }),
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log(result[0].likes)
+                document.getElementById('twt' + pid).innerHTML = result[0].likes;
+            })
+
+
+        }
+
+
+        // Emojis Section
+
+        document.querySelector('emoji-picker')
+            .addEventListener('emoji-click', event => console.log(event.detail));
+
+        document.querySelector('emoji-picker')
+            .addEventListener('emoji-click', event => document.getElementById('tweetformcontent').value += event.detail.unicode);
+
+        document.querySelector('emoji-picker').style.display = "none";
+        // document.querySelector('tweet').style.display = "none";
+
+        function abc() {
+            console.log("harsh")
+            if (document.querySelector('emoji-picker').style.display == "none") {
+                document.querySelector('emoji-picker').style.display = "block";
+                document.querySelector('.tweet').style.display = "none";
+            }
+            else {
+                document.querySelector('emoji-picker').style.display = "none";
+                document.querySelector('.tweet').style.display = "block";
+            }
+        }
+
+
+
+        // Comment post Section
+        async function commentdata(pid, uid, username, profile) {
+
+            var commentfield = document.getElementById('commentfield' + pid).value
+            console.log('pid', pid)
+            console.log('uid', uid)
+            console.log('username', username)
+            console.log('profile', profile)
+            console.log('profile', commentfield)
+
+            await fetch("/comment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ pid, uid, username, profile, commentfield }),
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log(result)
+                location.assign('/home')
+            })
+
+        }
+
+
+        // Comment get Section
+
+
+        let classcomment = document.querySelectorAll(".comment");
+        classcomment.forEach(e => {
+            e.style.display = "none";
+
+        })
+
+        let commentsection = document.querySelectorAll(".commentsection");
+        commentsection.forEach(e => {
+            e.style.display = "none";
+
+        })
+        // classcomment.forEach()
+        console.log(classcomment)
+
+        async function comment(pid, uid) {
+            var commentsection = document.getElementById('commentsection' + pid);
+            // commentsection.style.display = "none";
+            var comment = document.getElementById("comment" + pid);
+            //  comment.style.display = "none";
+
+            console.log(comment)
+            // commentsection.innerHTML = "";
+            commentstr = ''
+            console.log('pid', pid)
+            console.log('uid', uid)
+            console.log(commentsection)
+            classcomment.forEach(i => {
+
+            })
+            if (commentsection.style.display == "none") {
+                commentsection.style.display = "block";
+                comment.style.display = "block";
+
+                await fetch("/comment_display", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ pid, uid }),
+                }).then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    console.log(result)
+                    for (i = 0; i < result.length; i++) {
+                        commentstr += `<div class="profile1">
+                                               
+                                <div class="profileimg1">
+                                    <img src="${result[i].profile_pic}" alt="">
+                                </div>
+                                                    
+                                                    
+                                <div class="profileinfo1">
+                                    <div class="name1">
+                                        <h3>
+                                            ${result[i].username}
+                                        </h3>
+                                    </div>
+                                    <div class="comment1">
+                                        <p>${result[i].comments}</p>
+                                    </div>
+                                </div>
+                            </div>`
+
+
+                    }
+                    commentsection.innerHTML = commentstr;
+
+                })
+
+            }
+            else {
+                commentsection.style.display = "none";
+                comment.style.display = "none";
+            }
+
+        }
+
+
+
+        //..............................retweet incrementation and database entry using fetch....................
+        // ..............................this fun is called when retweet btn is pressed....................
+        async function increment_count(tweet_id) {
+
+            var res = await fetch(`/retweet?tweet_id=${tweet_id}`);
+            var data = await res.json();
+            var cnt_increment = data.count;
+
+            document.getElementById('retwt' + tweet_id).innerHTML = cnt_increment;
+
+
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
