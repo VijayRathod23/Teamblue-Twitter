@@ -256,6 +256,7 @@ app.get("/profile", async (req, res) => {
     const retweet_data = await getdata(select_retweet);
 
     //..............if any retweet found for particular user
+<<<<<<< HEAD
     
 
         var count = new Array();
@@ -289,6 +290,40 @@ for(var i = 0; i<retweet_data.length ; i++){
    
     res.render("profile", { tokenData, selectData, tweet_data, count })
 }
+=======
+
+
+    var count = new Array();
+    var tweet_data = new Array();
+
+    if (retweet_data[0]) {
+
+        for (var i = 0; i < retweet_data.length; i++) {
+
+            var retweeted_tweet_id = retweet_data[i].tweet_id;
+            console.log(retweeted_tweet_id);
+
+            var tweet_select = `select * from twitter_clone.tweets where id = '${retweeted_tweet_id}'`;
+
+            var tweet_data_1 = await getdata(tweet_select);
+
+
+            tweet_data.push(tweet_data_1[0]);
+
+
+
+            var sql_retweet = `select count(id) as cnt from retweets where tweet_id = '${retweeted_tweet_id}'`;
+            var retweet_cnt = await getdata(sql_retweet);
+            count.push(retweet_cnt[0].cnt);
+            
+
+        }
+
+
+
+        res.render("profile", { tokenData, selectData, tweet_data, count })
+    }
+>>>>>>> Priya
     else {
         res.render("profile", { tokenData, selectData, tweet_data: 0 })
 
