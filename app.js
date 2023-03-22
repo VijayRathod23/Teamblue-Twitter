@@ -256,7 +256,7 @@ app.get("/profile", async (req, res) => {
     const retweet_data = await getdata(select_retweet);
 
     //..............if any retweet found for particular user
-<<<<<<< HEAD
+
     
 
         var count = new Array();
@@ -290,7 +290,6 @@ for(var i = 0; i<retweet_data.length ; i++){
    
     res.render("profile", { tokenData, selectData, tweet_data, count })
 }
-=======
 
 
     var count = new Array();
@@ -323,7 +322,6 @@ for(var i = 0; i<retweet_data.length ; i++){
 
         res.render("profile", { tokenData, selectData, tweet_data, count })
     }
->>>>>>> Priya
     else {
         res.render("profile", { tokenData, selectData, tweet_data: 0 })
 
@@ -495,7 +493,7 @@ app.post('/like', async (req, res) => {
 
 //....Retweet
 //..............................................called after retweet icon is pressed..................
-app.get("/retweet", (req, res) => {
+app.get("/retweet",async  (req, res) => {
 
     var tweet_id = req.query.tweet_id;  //...................................got tweet_id............
     //const jwtToken = req.session.user;
@@ -505,9 +503,11 @@ app.get("/retweet", (req, res) => {
     if (tokenData) {
         //const tokenData = jwt.verify(jwtToken, "user");
         const user_id = tokenData.id; // ..............................got user_id from token............
+      
+        var retweet_status = await getdata(`select id from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`);
 
-        con.query(`select id from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`, (err, retweet_status) => {
 
+       // con.query(`select id from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`, (err, retweet_status) => {
 
 
             //.................................check if already retweeted by this user then delete
@@ -515,42 +515,51 @@ app.get("/retweet", (req, res) => {
 
             if (retweet_status[0]) {
 
-                var del = getdata(`delete from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`);
-                con.query(`select count(id) as cnt from retweets where  tweet_id='${tweet_id}'`, (err, result) => {
-                    if (err) throw err;
+                var del = await getdata(`delete from retweets where user_id='${user_id}' and tweet_id='${tweet_id}'`);
+                var result = await getdata(`select count(id) as cnt from retweets where  tweet_id='${tweet_id}'`);
+                // con.query(`select count(id) as cnt from retweets where  tweet_id='${tweet_id}'`, (err, result) => {
+                //     if (err) throw err;
 
                     var count = result[0].cnt;
                     res.json({ count });
 
-                });
+                //});
 
             }
 
             //.....................................else insert into retweets.....................
             else {
 
-                var sql = `insert into retweets (user_id, tweet_id) value ('${user_id}','${tweet_id}')`;
+                var sql = `insert into retweets (user_id, tweet_id) value ('${user_id}','${tweet_id}')`;               
 
-                //.....................................insert into retweets..........................
+                //.....................................insert into retweets..........................  
+                
+                var result_insert = await getdata(sql);
 
-                con.query(sql, (err, result) => {
-                    if (err) throw err;
+                var res_tweets = await getdata(`select profilr pic , username from `);
+
+
+
+                // con.query(sql, (err, result) => {
+                //     if (err) throw err;
+
+                   var res_cnt = await getdata(`select count(id) as cnt from retweets where tweet_id='${tweet_id}'`); 
 
 
                     //...................................
-                    con.query(`select count(id) as cnt from retweets where tweet_id='${tweet_id}'`, (err, result) => {
-                        if (err) throw err;
+                    // con.query(`select count(id) as cnt from retweets where tweet_id='${tweet_id}'`, (err, result) => {
+                    //     if (err) throw err;
 
-                        var count = result[0].cnt;
+                        var count = res_cnt[0].cnt;
                         res.json({ count });
 
-                    });
+                    //});
 
-                })
+               // })
 
             }
 
-        });
+       // });
 
     }
 

@@ -164,26 +164,18 @@
                 <div class="tweet_media">
                     <!-- ................................Tweet..................... -->
                     <div class="tweet">
-<<<<<<< HEAD
                         <p>Tweets</p>       
-=======
-                        <p>Tweets</p>
->>>>>>> Priya
                         <!-- ..........if retweet found........... -->
 
                         <%if(tweet_data !=0){%>
 
-<<<<<<< HEAD
-                            <p id="you_retweeted_this">You Retweeted this</p>
-=======
-
->>>>>>> Priya
+                           
                             <div class="tweet-main" id="tweet_main">
                                 <!-- post starts -->
                                 <%if(tweet_data.length !=0){%>
                                     <%for(let i=0; i<tweet_data.length; i++){%>
-<<<<<<< HEAD
-                                      
+                                        <div id="tweet<%=tweet_data[i].id%>">
+                                        <p id="you_retweeted_this">You Retweeted this</p>
                                         <div class="tweets">
                                             <div class="post">
 
@@ -236,69 +228,10 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-=======
-
-                                        <div id="tweet<%=tweet_data[i].id%>">
-                                            <p>You Retweeted this</p>
-                                            <div class="tweets">
-                                                <div class="post">
-
-                                                    <div class="post__avatar">
-                                                        <img src="<%=tweet_data[i].profile_pic%>" alt="img"
-                                                            class="post__avatar" />
-                                                    </div>
-                                                    <div class="post__body">
-                                                        <div class="post__header">
-                                                            <div class="post__headerText">
-                                                                <h3>
-                                                                    <%=tweet_data[i].username%>
-                                                                        <span class="post__headerSpecial"><span
-                                                                                class="material-icons post__badge">
-                                                                                <!-- </span>@<%=selectData[0].email%></span> -->
-                                                                </h3>
-                                                            </div>
-                                                            <div class="post__headerDescription">
-                                                                <p>
-                                                                    <%=tweet_data[i].tweet_text%>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <%if(tweet_data[i].media){%>
-                                                            <img src="<%=tweet_data[i].media%>" alt="img"
-                                                                class="tweetImg" />
-                                                            <%}%>
-
-
-                                                                <div class="post-footer">
-                                                                    <div class="btn-container">
-                                                                        <input type="hidden"
-                                                                            value="<%=tweet_data[i].id%>"
-                                                                            name="tweetid">
-                                                                        <div class="twt-toggle"><i
-                                                                                class="fa-regular fa-comment"></i>
-                                                                            comments</div>
-                                                                        <div class="twt-toggle"><i
-                                                                                class="fa-solid fa-heart"
-                                                                                onclick="like('<%=tweet_data[i].id%>','<%=tweet_data[i].user_id%>')"></i>
-                                                                            <p id="twt<%=tweet_data[i].id%>">
-                                                                                <%=tweet_data[i].likes%>
-                                                                            </p>
-                                                                        </div>
-                                                                        <div class="twt-toggle">
-                                                                            <a
-                                                                                onclick="increment_count('<%= tweet_data[i].id %>')"><i
-                                                                                    class="fa-solid fa-retweet"></i></a>
-                                                                            <p id="retwt<%=tweet_data[i].id%>">
-                                                                                <%=count[i]%>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                    </div>
->>>>>>> Priya
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                         <%}%>
                                             <%}%>
                                                 <!-- post ends -->
@@ -366,15 +299,11 @@
             var res = await fetch(`/retweet?tweet_id=${tweet_id}`);
             var data = await res.json();
             var cnt_increment = data.count;
-<<<<<<< HEAD
-            document.getElementById("you_retweeted_this").innerHTML = '';
-            document.getElementById("tweet_main").innerHTML = '';
+           // document.getElementById("you_retweeted_this").innerHTML = '';
+            document.getElementById(`tweet${tweet_id}`).innerHTML = '';
          
 
 
-=======
-            document.getElementById(`tweet${tweet_id}`).innerHTML = '';
->>>>>>> Priya
 
         }
 
